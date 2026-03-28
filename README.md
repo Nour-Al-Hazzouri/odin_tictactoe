@@ -1,1 +1,1 @@
-# odin_tictactoe
+# Odin Tic Tac Toe
