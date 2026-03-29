@@ -19,48 +19,39 @@ const Gameboard = (function () {
                 }
             }
         },
+        logBoard: () => {
+            let outputValue = '';
+            for (let i = 0; i < boardLength; i++) {
+                outputValue += ` ${gameBoard[i]} `
+                if (i === 2 || i === 5 || i === 8) {
+                    outputValue += '\n';
+                }
+            }
+            console.log(outputValue);
+        },
         // Log board index to prevent empty values
-        logBoard: (i) => {
+        logBoardIndex: (i) => {
             const boardValue = gameBoard[i];
             return boardValue;
         },
+        logBoardLength: () => {
+            const length = gameBoard.length;
+            return length;
+        },
         // Logic to insert marker in array, array termination, and array iteration with edge cases
         insertMarker: (index) => {
-            if (gameBoard[index] === undefined) {
+            if ((gameBoard[index] === undefined) && (index < boardLength && index >= 0)) {
                 if (markersPlaced % 2 == 0) {
-                    gameBoard[index] = player2.getMarker();
-                    console.log(gameBoard[index]);
-                    markersPlaced += 1
-                    if (markersPlaced <= 3) {
-                        Gameboard.checkResults();
-                    }
-                } else {
                     gameBoard[index] = player1.getMarker();
-                    console.log(gameBoard[index]);
+                    markersPlaced += 1
+                } else {
+                    gameBoard[index] = player2.getMarker();
                     markersPlaced += 1;
-                    if (markersPlaced <= 3) {
-                        Gameboard.checkResults();
-                    }
                 }
-            } else if ((gameBoard[index] === 'X') || (gameBoard[index] === 'O')){
+            } else if ((gameBoard[index] !== undefined) && (index < boardLength && index >= 0)) {
                 console.log("Spot Already Marked");
-            } else {
-                return
-            }
-        },
-        checkResults: () => {
-            if (
-                (gameBoard[0] === gameBoard[1] && gameBoard[1] === gameBoard[2]) ||
-                (gameBoard[3] === gameBoard[4] && gameBoard[4] === gameBoard[5]) ||
-                (gameBoard[6] === gameBoard[7] && gameBoard[7] === gameBoard[8]) ||
-                (gameBoard[0] === gameBoard[3] && gameBoard[3] === gameBoard[6]) ||
-                (gameBoard[1] === gameBoard[4] && gameBoard[4] === gameBoard[7]) ||
-                (gameBoard[2] === gameBoard[5] && gameBoard[5] === gameBoard[8]) ||
-                (gameBoard[0] === gameBoard[4] && gameBoard[4] === gameBoard[8]) ||
-                (gameBoard[2] === gameBoard[4] && gameBoard[4] === gameBoard[6])
-            ) {
-                console.log("Game ends!");
-                Game.end();
+            } else if (index < boardLength && index >= 0) {
+                console.log("Exceeded Board Limits");
             }
         }
     }
@@ -68,13 +59,11 @@ const Gameboard = (function () {
 
 // Player object for player-related functionality
 function Player(playerName, playerMarker) {
-    const name = playerName;
-    const marker = playerMarker;
     const getName = () => {
-        return name;
+        return playerName;
     }
     const getMarker = () => {
-        return marker;
+        return playerMarker;
     }
     return { getName, getMarker };
 }
@@ -82,20 +71,26 @@ function Player(playerName, playerMarker) {
 const Game = (function () {
     return {
         start: () => {
-            for (let i = 0; i < 9; i++) {
-                Gameboard.insertMarker(i);
-                if (Gameboard.logBoard(i) === undefined) {
-                    i -= 1
+            let boardTracker = 0;
+            while ((boardTracker < 9)) {
+                Gameboard.insertMarker(Game.randomValue());
+                if (Gameboard.logBoardIndex(boardTracker) !== undefined) {
+                    boardTracker += 1;
                 }
             }
+
+            Gameboard.logBoard();
         },
         restart: () => {
             Gameboard.resetBoard();
             Game.start();
         },
+        randomValue: () => {
+            const randomValue = Math.floor(Math.random() * (8 - 0 + 1)) + 0; // AI-Generated to test functionality
+            return randomValue;
+        },
         end: () => {
-            Gameboard.insertMarker(null);
-            Gameboard.resetBoard();
+            // TODO
         }
     }
 })();
