@@ -5,11 +5,14 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Rubik";
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h1 {
+header {
   text-align: center;
 }
 
@@ -21,7 +24,6 @@ main {
 }
 
 .start-btn {
-  background-color: #e7e7e7;
   padding: 0.2rem 1rem 0.2rem 1rem;
   border-radius: 7%;
 }
@@ -31,4 +33,22 @@ main {
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   min-width: 80%;
+}
+.grid-count button {
+  background-color: #e7e7e7;
+  color: black;
+  font-size: xx-large;
+  min-width: 5rem;
+  min-height: 5rem;
+}
+
+button:disabled {
+  background-color: #e7e7e7;
+  color: black;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
