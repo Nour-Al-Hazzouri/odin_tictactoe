@@ -6,15 +6,29 @@ const Gameboard = (function () {
     const boardLength = 9;
     let markersPlaced = 0;
 
-    // Markers
-    const markerX = "X";
-    const markerO = "O";
+    // Player related variables
+    markerX= 'X';
+    markerO= 'O';
+    let playerOne, playerTwo, playerOnesName, playerTwosName;
 
-    // Players (hard-coded for now)
-    const player1 = Player("Nour", markerX);
-    const player2 = Player("Abdullah", markerO);
+    function createPlayers() {
+        playerOne = Player(playerOnesName, markerX);
+        playerTwo = Player(playerTwosName, markerO);
+    }
     return {
         // Reset all values in array from undefined to 0
+        extractNames: () => {
+            const nameOne= document.querySelector("#p1").value;
+            const nameTwo= document.querySelector("#p2").value;
+            if (!(nameOne && nameTwo)) {
+                alert("Name cannot be empty!");
+            } else {
+                playerOnesName = nameOne;
+                playerTwosName = nameTwo;
+                createPlayers();
+                startButton.disabled = true;
+            }
+        },
         resetBoard: () => {
             for (let i = 0; i < boardLength; i++) {
                 if (!(gameBoard[i] === 0)) {
@@ -40,8 +54,8 @@ const Gameboard = (function () {
         },
         // Logic to insert marker in array, array termination, and array iteration with edge cases
         insertMarker: (index) => {
-            const playerOneMarker = player1.getMarker();
-            const playerTwoMarker = player2.getMarker();
+            const playerOneMarker = playerOne.getMarker();
+            const playerTwoMarker = playerTwo.getMarker();
 
             if (gameBoard[index] === 0 && index < boardLength && index >= 0) {
                 if (markersPlaced % 2 === 0) {
@@ -167,4 +181,6 @@ const Game = (function () {
     };
 })();
 
-Game.start();
+const startButton= document.querySelector('.start-btn');
+startButton.addEventListener('click', Gameboard.extractNames);
+
