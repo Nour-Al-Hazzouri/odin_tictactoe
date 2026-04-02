@@ -1,4 +1,54 @@
-html, body {
-    padding: 0;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Rubik";
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.start-btn {
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  border-radius: 7%;
+}
+
+.grid-count {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  min-width: 80%;
+}
+.grid-count button {
+  background-color: #e7e7e7;
+  color: black;
+  font-size: xx-large;
+  min-width: 5rem;
+  min-height: 5rem;
+}
+
+button:disabled {
+  background-color: #e7e7e7;
+  color: black;
+}
+
+.user-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
