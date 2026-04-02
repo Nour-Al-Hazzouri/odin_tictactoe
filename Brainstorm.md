@@ -34,3 +34,4 @@ First, the 3 main objects:
 - Gameboard (with array and marker)
 - Game (with game logic flow)
 
+After completing the terminal version, logic is clear for me and I just need to interpret it into a GUI version.
